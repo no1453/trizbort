@@ -463,8 +463,12 @@ namespace Trizbort
                 var line = lines[lineIndex].Trim();
                 if (line.Length == 0)
                 {
-                    // we hit a blank line; give up
-                    break;
+                    // we hit a blank line; skip it
+                    lineIndex++;
+                    if (lineIndex < lines.Count)
+                        line = lines[lineIndex].Trim();
+                    else  // end of the line, give up
+                        break;
                 }
 
                 string unused;
