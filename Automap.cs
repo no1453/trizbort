@@ -290,13 +290,27 @@ namespace Trizbort
                 return false;
             }
 
-            if (!char.IsLetterOrDigit(line[line.Length - 1]))
+            if (!char.IsLetterOrDigit(line[line.Length - 1]) && line[line.Length - 1]!=')' )
             {
-                // the last character of the room name must be a number or a letter
-                SetFailureReason("the line didn't end with a letter or a number");
+                // the last character of the room name must be a number or a letter or a close paren
+                SetFailureReason("the line didn't end with a letter or a number or a close paren");
                 return false;
             }
 
+            //Check for room names in parentheses: 'Seastalker' fix
+            if (line[0]=='(')
+            {
+                var closeParenLoc = line.IndexOf(')');
+                if (closeParenLoc >= 2)
+                {
+                    //Pull out everything in the parentheses
+                    line = line.Substring(1, closeParenLoc-1);
+                    //Capitalize all words
+                    line = Regex.Replace(line, @"\b(\w)", m => m.Value.ToUpper());
+                    
+                }
+            }
+            
             // strip suffixes such as those in "Bedroom, on the bed" or "Bedroom (on the bed)" or "Bedroom - on the bed"
             bool strippedSuffix;
             do
@@ -334,8 +348,8 @@ namespace Trizbort
 
             if (!char.IsLetterOrDigit(line[line.Length - 1]))
             {
-                // the last character of the room description must be a number or a letter
-                SetFailureReason("after stripping suffixes from the line, it didn't end with a letter or a number");
+                // the last character of the room description must be a number or a letter or a close paren
+                SetFailureReason("after stripping suffixes from the line, it didn't end with a letter or a number or a close paren");
                 return false;
             }
 
@@ -346,6 +360,7 @@ namespace Trizbort
                 return false;
             }
 
+            //taking out must be capitalized
             if (!StartsWithCapitalOrNonLetter(line))
             {
                 // if the first character of the room description is a letter, it must be capitalised
