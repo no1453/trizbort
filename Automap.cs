@@ -428,10 +428,10 @@ namespace Trizbort
                 SetFailureReason("the word contains no text");
                 return false;
             }
-            if (!char.IsLetterOrDigit(word[0]) && word[0]!='&' )
+            if (!char.IsLetterOrDigit(word[0]) && word[0]!='&' && word[0]!='#' )
             {
                 // the first character must be a letter or a digit or an ampersand
-                SetFailureReason("the word must begin with a letter, a digit, or an ampersand");
+                SetFailureReason("the word must begin with a letter, a digit, an ampersand, or a hash sign");
                 return false;
             }
             ClearFailureReason();
