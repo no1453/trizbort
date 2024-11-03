@@ -9,6 +9,8 @@ This software uses PdfSharp, copyright (c) 2005-2007 empira Software GmbH, Colog
 
 forked by no1453 (no1453 at gmail dot com) from official trizbort 1.2.1
 
+This fork has some modifications to correctly read the room names in some Infocom games.
+
 For the latest official Trizbort version:
 
 	http://github.com/genstein/trizbort
